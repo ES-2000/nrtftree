@@ -1206,25 +1206,46 @@ namespace Net.Sgoliver.NRtfTree
                         }
                     }
                 }
-                else if (NodeType == RtfNodeType.Control)
+                else if (NodeType == RtfNodeType.Control || NodeType == RtfNodeType.Text)
                 {
-                    if (NodeKey == "'")
-                        res.Append(DecodeControlChar(Parameter, tree.GetEncoding()));
-                    else if (NodeKey == "~")  // non-breaking space
-                        res.Append(" ");
-                }
-                else if (NodeType == RtfNodeType.Text)
-                {
-                    string newtext = NodeKey;
+                    string newtext = string.Empty;
+                    if (this.NodeType == RtfNodeType.Control)
+                    {
+                        if (this.NodeKey == "'")
+                            newtext = DecodeControlChar(this.Parameter, this.tree.GetEncoding());
+                        else if (this.NodeKey == "~")  // non-breaking space
+                            newtext = " ";
+                    }
+                    else
+                        newtext = this.NodeKey;
 
                     //Si el elemento anterior era un caracater Unicode (\uN) ignoramos los siguientes N caracteres
                     //según la última etiqueta \ucN
-                    if (PreviousNode.NodeType == RtfNodeType.Keyword &&
-                        PreviousNode.NodeKey.Equals("u"))
+                    int charsToIgnore = ignoreNchars;
+                    RtfTreeNode curNode = this;
+                    while (charsToIgnore > 0)
                     {
-                        newtext = newtext.Substring(ignoreNchars);
+                        RtfTreeNode prevNode = curNode.PreviousNode;
+                        if (prevNode == null)
+                            break;
+                        if (prevNode.NodeType == RtfNodeType.Keyword &&
+                            prevNode.NodeKey.Equals("u"))
+                        {
+                            if (newtext.Length <= charsToIgnore)
+                                newtext = string.Empty;
+                            else
+                                newtext = newtext.Substring(charsToIgnore);
+                            break;
+                        }
+                        else if (prevNode.NodeType == RtfNodeType.Text ||
+                                prevNode.NodeType == RtfNodeType.Control)
+                        {
+                            charsToIgnore -= prevNode.GetText(raw, 0).Length;
+                            curNode = prevNode;
+                        }
+                        else
+                            break;
                     }
-
                     res.Append(newtext);
                 }
                 else if (NodeType == RtfNodeType.Keyword)
