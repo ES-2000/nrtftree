@@ -1191,7 +1191,9 @@ namespace Net.Sgoliver.NRtfTree
                         !ChildNodes[indkw].NodeKey.Equals("info") &&
                         !ChildNodes[indkw].NodeKey.Equals("pict") &&
                         !ChildNodes[indkw].NodeKey.Equals("object") &&
-                        !ChildNodes[indkw].NodeKey.Equals("fldinst")))
+                        !ChildNodes[indkw].NodeKey.Equals("fldinst") &&
+                        !ChildNodes[indkw].NodeKey.Equals("bkmkstart") &&
+                        !ChildNodes[indkw].NodeKey.Equals("bkmkend")))
                     {
                         if (ChildNodes != null)
                         {
