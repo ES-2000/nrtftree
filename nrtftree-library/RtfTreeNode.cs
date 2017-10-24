@@ -1183,7 +1183,10 @@ namespace Net.Sgoliver.NRtfTree
                 {
                     int indkw = FirstChild.NodeKey.Equals("*") ? 1 : 0;
 
-                    if (raw ||
+                    if (!raw && indkw == 1)
+                        return string.Empty;
+
+                    if (raw || 
                        (!ChildNodes[indkw].NodeKey.Equals("fonttbl") &&
                         !ChildNodes[indkw].NodeKey.Equals("colortbl") &&
                         !ChildNodes[indkw].NodeKey.Equals("stylesheet") &&
@@ -1193,7 +1196,11 @@ namespace Net.Sgoliver.NRtfTree
                         !ChildNodes[indkw].NodeKey.Equals("object") &&
                         !ChildNodes[indkw].NodeKey.Equals("fldinst") &&
                         !ChildNodes[indkw].NodeKey.Equals("bkmkstart") &&
-                        !ChildNodes[indkw].NodeKey.Equals("bkmkend")))
+                        !ChildNodes[indkw].NodeKey.Equals("bkmkend") &&
+                        !ChildNodes[indkw].NodeKey.Equals("latentstyles") &&
+                        !ChildNodes[indkw].NodeKey.Equals("datastore") &&
+                        !ChildNodes[indkw].NodeKey.Equals("themedata") &&
+                        !ChildNodes[indkw].NodeKey.Equals("colorschememapping")))
                     {
                         if (ChildNodes != null)
                         {
