@@ -32,6 +32,7 @@ using Net.Sgoliver.NRtfTree.Util;
 using System.IO;
 using NUnit.Framework;
 using System.Drawing;
+using System.Reflection;
 
 namespace Net.Sgoliver.NRtfTree.Test
 {
@@ -40,11 +41,11 @@ namespace Net.Sgoliver.NRtfTree.Test
     {
         RtfTree tree = null;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void InitTestFixture()
         {
             tree = new RtfTree();
-            tree.LoadRtfFile("..\\..\\testdocs\\testdoc2.rtf");
+            tree.LoadRtfFile(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", string.Empty), "testdocs\\testdoc2.rtf"));
         }
 
         [SetUp]
@@ -153,7 +154,7 @@ namespace Net.Sgoliver.NRtfTree.Test
             //sw.Flush();
             //sw.Close();
 
-            StreamReader sr = new StreamReader("..\\..\\testdocs\\infogroup.txt");
+            StreamReader sr = new StreamReader(FilePathHelper.GetFilePath("testdocs\\infogroup.txt"));
             string infoString = sr.ReadToEnd();
             sr.Close();
 
