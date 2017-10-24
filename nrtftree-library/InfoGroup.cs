@@ -289,10 +289,10 @@ namespace Net.Sgoliver.NRtfTree
                 str.AppendLine("Comment   : " + Comment);
                 str.AppendLine("DComment  : " + DocComment);
                 str.AppendLine("HLinkBase : " + HlinkBase);
-                str.AppendLine("Created   : " + CreationTime);
-                str.AppendLine("Revised   : " + RevisionTime);
-                str.AppendLine("Printed   : " + LastPrintTime);
-                str.AppendLine("Backup    : " + BackupTime);
+                str.AppendLine("Created   : " + CreationTime.ToString(System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat));
+                str.AppendLine("Revised   : " + RevisionTime.ToString(System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat));
+                str.AppendLine("Printed   : " + LastPrintTime.ToString(System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat));
+                str.AppendLine("Backup    : " + BackupTime.ToString(System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat));
                 str.AppendLine("Version   : " + Version);
                 str.AppendLine("IVersion  : " + InternalVersion);
                 str.AppendLine("Editing   : " + EditingTime);
