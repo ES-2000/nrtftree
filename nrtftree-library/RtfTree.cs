@@ -700,8 +700,9 @@ namespace Net.Sgoliver.NRtfTree
 
                 RtfTreeNode pardNode =
                     MainGroup.SelectSingleChildNode("pard");
+                int startIndex = pardNode != null ? pardNode.Index : 0;
 
-                for (int i = pardNode.Index; i < MainGroup.ChildNodes.Count; i++)
+                for (int i = startIndex; i < MainGroup.ChildNodes.Count; i++)
                 {
                     res.Append(MainGroup.ChildNodes[i].Text);
                 }

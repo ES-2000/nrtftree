@@ -1178,9 +1178,11 @@ namespace Net.Sgoliver.NRtfTree
             private string GetText(bool raw, int ignoreNchars)
             {
                 StringBuilder res = new StringBuilder("");
-
+             
                 if (NodeType == RtfNodeType.Group)
                 {
+                    if (FirstChild == null)
+                        return string.Empty;
                     int indkw = FirstChild.NodeKey.Equals("*") ? 1 : 0;
 
                     if (!raw && indkw == 1)
