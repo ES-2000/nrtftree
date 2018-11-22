@@ -132,7 +132,7 @@ namespace Net.Sgoliver.NRtfTree.Test
 
             int res = tree.LoadRtfFile(FilePathHelper.GetFilePath("testdocs\\unicodedoc.rtf"));
 
-            Assert.That(tree.Text, Is.EqualTo("Prueba Unicode: Вова Петя‘€\r\nSin ignorar caracteres: Вова Петя\r\n"));
+            Assert.That(tree.Text, Is.EqualTo("Prueba Unicode: Вова Петя‘€\r\nSin ignorar caracteres: Вова Петя📞\r\n"));
         }
     }
 }

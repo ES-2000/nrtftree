@@ -1134,6 +1134,13 @@ namespace Net.Sgoliver.NRtfTree
                 return hexa;
             }
 
+            private int ConvertParameterToInt()
+            {
+                if (Parameter < 0)
+                    return (ushort)((short)Parameter);
+                return Parameter;
+            }
+
             /// <summary>
             /// Actualiza las propiedades Root y Tree de un nodo (y sus hijos) con las del nodo actual.
             /// </summary>
@@ -1279,12 +1286,13 @@ namespace Net.Sgoliver.NRtfTree
                         res.Append("—");
                     else if (NodeKey.Equals("u"))
                     {
-                        res.Append(Char.ConvertFromUtf32(Parameter));
+                        res.Append((char)(ConvertParameterToInt()));
                     }
                 }
 
                 return res.ToString();
             }
+           
 
             #endregion
 
