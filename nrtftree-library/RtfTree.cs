@@ -276,7 +276,7 @@ namespace Net.Sgoliver.NRtfTree
                 //Buscamos la tabla de colores en el árbol
                 bool enc = false;
                 int i = 0;
-                RtfTreeNode ntc = new RtfTreeNode();  //Nodo con la tabla de fuentes
+                RtfTreeNode ntc = null;  //Nodo con la tabla de fuentes
 
                 while (!enc && i < nprin.ChildNodes.Count)
                 {
@@ -289,7 +289,8 @@ namespace Net.Sgoliver.NRtfTree
 
                     i++;
                 }
-
+                if (ntc == null)
+                    return null;
                 //Rellenamos el array de colores
                 int rojo = 0;
                 int verde = 0;
@@ -339,6 +340,9 @@ namespace Net.Sgoliver.NRtfTree
                 RtfStyleSheetTable sstable = new RtfStyleSheetTable();
 
                 RtfTreeNode sst = MainGroup.SelectSingleGroup("stylesheet");
+
+                if (sst == null)
+                    return null;
 
                 RtfNodeCollection styles = sst.ChildNodes;
 

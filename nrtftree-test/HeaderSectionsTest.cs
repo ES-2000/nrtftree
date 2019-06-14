@@ -40,12 +40,15 @@ namespace Net.Sgoliver.NRtfTree.Test
     public class HeaderSectionsTest
     {
         RtfTree tree = null;
+        RtfTree tree2 = null;
 
         [OneTimeSetUp]
         public void InitTestFixture()
         {
             tree = new RtfTree();
             tree.LoadRtfFile(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", string.Empty), "testdocs\\testdoc2.rtf"));
+            tree2 = new RtfTree();
+            tree2.LoadRtfFile(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", string.Empty), "testdocs\\testdoc5.rtf"));
         }
 
         [SetUp]
@@ -82,6 +85,8 @@ namespace Net.Sgoliver.NRtfTree.Test
             Assert.That(colorTable.IndexOf(Color.FromArgb(0, 0, 0)), Is.EqualTo(0));
             Assert.That(colorTable.IndexOf(Color.FromArgb(0, 0, 128)), Is.EqualTo(1));
             Assert.That(colorTable.IndexOf(Color.FromArgb(255, 0, 0)), Is.EqualTo(2));
+
+            Assert.AreEqual(null, tree2.GetColorTable());
         }
 
         [Test]
@@ -118,6 +123,8 @@ namespace Net.Sgoliver.NRtfTree.Test
             Assert.That(styleTable[11].Next, Is.EqualTo(11));
             Assert.That(styleTable[11].SemiHidden, Is.EqualTo(true));
             Assert.That(styleTable[11].Formatting.Count, Is.EqualTo(44));
+
+            Assert.AreEqual(null, tree2.GetStyleSheetTable());
         }
 
         [Test]
@@ -159,6 +166,8 @@ namespace Net.Sgoliver.NRtfTree.Test
             sr.Close();
 
             Assert.That(infoGroup.ToString(), Is.EqualTo(infoString));
+
+            Assert.AreEqual(null, tree2.GetInfoGroup());
         }
     }
 }
